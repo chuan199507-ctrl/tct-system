@@ -32,14 +32,17 @@ body{font-family:var(--font);background:var(--g50);color:var(--black);min-height
 .move-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:5px;margin-bottom:4px}
 .chip{padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:12px;color:var(--g700);background:var(--white);cursor:pointer;text-align:left;font-family:var(--font);line-height:1.3;-webkit-user-select:none}
 .chip.sel{border-color:var(--black);background:var(--black);color:var(--white);font-weight:500}
-.sel-table{width:100%;border-collapse:collapse}
-.sel-table th{font-size:10px;letter-spacing:.5px;text-transform:uppercase;color:var(--g500);padding:6px 4px;text-align:left;border-bottom:1px solid var(--border);font-family:var(--mono)}
-.sel-table td{padding:8px 4px;border-bottom:1px solid var(--g100);vertical-align:middle}
-.sel-table td:first-child{font-size:12px;max-width:100px;overflow:hidden;text-overflow:ellipsis}
-.sel-table input{width:100%;padding:5px 6px;border:1px solid var(--border);border-radius:6px;font-size:11px;font-family:var(--mono);text-align:center;background:var(--g50);color:var(--black)}
-.sel-table input:focus{outline:none;border-color:var(--black)}
-.sel-table input.custom-name{text-align:left;font-size:11px}
-.rm-btn{width:24px;height:24px;border:1px solid var(--border);border-radius:6px;background:none;cursor:pointer;font-size:14px;color:var(--g500);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.move-item{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:8px}
+.move-item-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.move-item-name{font-size:14px;font-weight:500;flex:1}
+.move-item input.custom-name{width:100%;padding:7px 10px;border:1px solid var(--border);border-radius:6px;font-size:13px;margin-bottom:8px}
+.set-row{display:grid;grid-template-columns:auto 1fr 1fr 1fr auto;gap:6px;align-items:center;margin-bottom:6px}
+.set-label{font-size:11px;color:var(--g500);font-family:var(--mono);min-width:32px}
+.set-row input{padding:6px 8px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:var(--mono);text-align:center;background:var(--g50)}
+.set-row input:focus{outline:none;border-color:var(--black)}
+.set-rm{width:24px;height:24px;border:1px solid var(--border);border-radius:6px;background:none;cursor:pointer;font-size:14px;color:var(--g500);display:flex;align-items:center;justify-content:center}
+.add-set-btn{width:100%;padding:8px;border:1px dashed var(--border);border-radius:6px;background:none;color:var(--g500);font-size:12px;cursor:pointer;margin-top:4px}
+.rm-move-btn{padding:6px 12px;border:1px solid var(--border);border-radius:6px;background:none;color:var(--g500);font-size:12px;cursor:pointer}
 .btn{width:100%;padding:13px;background:var(--black);color:var(--white);border:none;border-radius:var(--r);font-size:14px;font-weight:500;font-family:var(--font);cursor:pointer;letter-spacing:.3px;margin-top:12px}
 .btn:active{opacity:.85}
 .btn.sec{background:none;color:var(--black);border:1px solid var(--border);margin-top:8px}
@@ -62,10 +65,10 @@ body{font-family:var(--font);background:var(--g50);color:var(--black);min-height
 .report-sec:last-child{border-bottom:none}
 .rst{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--g500);margin-bottom:10px;display:flex;align-items:center;gap:6px;font-family:var(--mono)}
 .rst::after{content:'';flex:1;height:1px;background:var(--border)}
-.rt{width:100%;border-collapse:collapse;font-size:12px;table-layout:auto}
-.rt th{padding:7px 8px;text-align:left;font-size:10px;letter-spacing:.5px;text-transform:uppercase;color:var(--g500);border-bottom:1px solid var(--border);background:var(--g50);font-weight:400;font-family:var(--mono)}
-.rt td{padding:9px 8px;border-bottom:1px solid var(--g100);line-height:1.4}
-.rt tr:last-child td{border-bottom:none}
+.report-move{margin-bottom:12px}
+.report-move-name{font-size:13px;font-weight:500;margin-bottom:6px}
+.report-move-custom{font-size:11px;color:var(--g500);margin-bottom:6px}
+.report-set{font-size:12px;padding:4px 0;color:var(--g700)}
 .hw-list{list-style:none;display:flex;flex-direction:column;gap:6px}
 .hw-list li{font-size:13px;display:flex;align-items:flex-start;gap:8px;line-height:1.5}
 .hw-num{width:18px;height:18px;border-radius:50%;border:1px solid var(--black);font-size:10px;font-family:var(--mono);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
@@ -107,9 +110,9 @@ body{font-family:var(--font);background:var(--g50);color:var(--black);min-height
   .rmc .lbl{font-size:11px}
   .rmc .val{font-size:15px}
   .rst{font-size:12px}
-  .rt{font-size:14px}
-  .rt th{font-size:12px}
-  .rt td{font-size:14px;padding:10px 8px}
+  .report-move-name{font-size:15px}
+  .report-move-custom{font-size:13px}
+  .report-set{font-size:14px}
   .hw-list li{font-size:15px}
   .note-box{font-size:15px;line-height:1.8}
   .disclaimer{page-break-before:avoid}
@@ -165,20 +168,8 @@ body{font-family:var(--font);background:var(--g50);color:var(--black);min-height
     </div>
 
     <div class="sec-lbl">訓練內容</div>
-    <div class="card">
-      <table class="sel-table">
-        <thead><tr>
-          <th style="width:30%">動作</th>
-          <th style="width:16%">重量</th>
-          <th style="width:16%">組次</th>
-          <th style="width:16%">秒數</th>
-          <th style="width:16%">自訂</th>
-          <th style="width:6%"></th>
-        </tr></thead>
-        <tbody id="session-moves"></tbody>
-      </table>
-      <button class="add-btn" style="margin-top:10px" onclick="showPicker()">＋ 加入動作</button>
-    </div>
+    <div id="session-moves-container"></div>
+    <button class="add-btn" onclick="showPicker()">＋ 加入動作</button>
 
     <div class="sec-lbl">回家功課</div>
     <div class="card"><div class="move-grid" id="session-hw"></div></div>
@@ -270,8 +261,8 @@ const MOVES={
 };
 const HW_OPT=['橫膈膜呼吸練習','髖屈肌伸展','胸椎活動度練習','滾筒大腿放鬆','滾筒背部放鬆','肩關節外旋練習','骨盆中立覺察','維持活動量','確保睡眠充足','補充水分','姿勢覺察（辦公室）','核心啟動練習','死蟲式自主練習','髖關節放鬆','控制飲食恢復','足底按摩球放鬆'];
 
-let students=JSON.parse(localStorage.getItem('tct_v3_students')||'[]');
-let sessions=JSON.parse(localStorage.getItem('tct_v3_sessions')||'{}');
+let students=JSON.parse(localStorage.getItem('tct_v4_students')||'[]');
+let sessions=JSON.parse(localStorage.getItem('tct_v4_sessions')||'{}');
 let cur=null;
 let sessionMoves=[];
 let sessionHW=new Set();
@@ -280,8 +271,8 @@ let chartInst=null;
 let isNewStudent=false;
 
 function persist(){
-  localStorage.setItem('tct_v3_students',JSON.stringify(students));
-  localStorage.setItem('tct_v3_sessions',JSON.stringify(sessions));
+  localStorage.setItem('tct_v4_students',JSON.stringify(students));
+  localStorage.setItem('tct_v4_sessions',JSON.stringify(sessions));
 }
 
 function getCat(moveName){
@@ -371,8 +362,7 @@ function closePicker(){
   const cur_names=new Set(sessionMoves.map(m=>m.name));
   pickerSel.forEach(n=>{
     if(!cur_names.has(n)){
-      const cat=getCat(n);
-      sessionMoves.push({name:n,w:'',r:'',sec:'',customName:'',cat});
+      sessionMoves.push({name:n,sets:[{w:'',r:'',sec:''}],customName:''});
     }
   });
   sessionMoves=sessionMoves.filter(m=>pickerSel.has(m.name));
@@ -398,10 +388,7 @@ function renderStudentList(){
 function openStudent(i){
   cur=i;
   const s=students[i];
-  sessionMoves=(s.defaultMoves||[]).map(m=>{
-    const cat=getCat(m);
-    return{name:m,w:'',r:'',sec:'',customName:'',cat};
-  });
+  sessionMoves=(s.defaultMoves||[]).map(m=>({name:m,sets:[{w:'',r:'',sec:''}],customName:''}));
   sessionHW=new Set(s.defaultHW||[]);
   document.getElementById('session-date').value=new Date().toISOString().split('T')[0];
   document.getElementById('session-note').value='';
@@ -413,21 +400,33 @@ function openStudent(i){
 }
 
 function renderSessionMoves(){
-  const tb=document.getElementById('session-moves');
+  const c=document.getElementById('session-moves-container');
   if(!sessionMoves.length){
-    tb.innerHTML=`<tr><td colspan="6" style="text-align:center;padding:14px;color:var(--g500);font-size:13px">尚未選擇動作</td></tr>`;
+    c.innerHTML=`<div class="empty-state" style="padding:20px"><div class="icon">💪</div>尚未選擇動作</div>`;
     return;
   }
-  tb.innerHTML=sessionMoves.map((m,i)=>{
+  c.innerHTML=sessionMoves.map((m,mi)=>{
     const showCustom=m.name==='[自訂動作]';
-    return`<tr>
-      <td>${showCustom?'<span style="color:var(--g500)">自訂</span>':m.name}</td>
-      <td><input type="text" value="${m.w}" placeholder="kg" oninput="sessionMoves[${i}].w=this.value"></td>
-      <td><input type="text" value="${m.r}" placeholder="3×10" oninput="sessionMoves[${i}].r=this.value"></td>
-      <td><input type="text" value="${m.sec}" placeholder="秒" oninput="sessionMoves[${i}].sec=this.value"></td>
-      <td><input type="text" class="custom-name" value="${m.customName}" placeholder="${showCustom?'填動作':'備註'}" oninput="sessionMoves[${i}].customName=this.value"></td>
-      <td><button class="rm-btn" onclick="sessionMoves.splice(${i},1);renderSessionMoves()">×</button></td>
-    </tr>`;
+    let html=`<div class="move-item">`;
+    html+=`<div class="move-item-hd">
+      <div class="move-item-name">${showCustom?'<span style="color:var(--g500)">自訂動作</span>':m.name}</div>
+      <button class="rm-move-btn" onclick="sessionMoves.splice(${mi},1);renderSessionMoves()">刪除</button>
+    </div>`;
+    if(showCustom||m.customName){
+      html+=`<input type="text" class="custom-name" value="${m.customName}" placeholder="${showCustom?'輸入動作名稱':'備註'}" oninput="sessionMoves[${mi}].customName=this.value">`;
+    }
+    m.sets.forEach((s,si)=>{
+      html+=`<div class="set-row">
+        <div class="set-label">組${si+1}</div>
+        <input type="text" value="${s.w}" placeholder="kg" oninput="sessionMoves[${mi}].sets[${si}].w=this.value">
+        <input type="text" value="${s.r}" placeholder="10次" oninput="sessionMoves[${mi}].sets[${si}].r=this.value">
+        <input type="text" value="${s.sec}" placeholder="秒" oninput="sessionMoves[${mi}].sets[${si}].sec=this.value">
+        <button class="set-rm" onclick="sessionMoves[${mi}].sets.splice(${si},1);renderSessionMoves()">×</button>
+      </div>`;
+    });
+    html+=`<button class="add-set-btn" onclick="sessionMoves[${mi}].sets.push({w:'',r:'',sec:''});renderSessionMoves()">＋ 新增組數</button>`;
+    html+=`</div>`;
+    return html;
   }).join('');
 }
 
@@ -497,18 +496,17 @@ function buildReportHTML(name,date,moves,hw,hwNote,special,note){
   const mvHTML=moves.length
     ?moves.map(m=>{
       const displayName=m.name==='[自訂動作]'&&m.customName?m.customName:m.name;
-      const w=m.w||'—';
-      const r=m.r||'—';
-      const sec=m.sec||'—';
-      const custom=m.customName&&m.name!=='[自訂動作]'?`<br><span style="font-size:11px;color:var(--g500)">${m.customName}</span>`:'';
-      return`<tr>
-        <td>${displayName}${custom}</td>
-        <td style="text-align:center">${w}</td>
-        <td style="text-align:center">${r}</td>
-        <td style="text-align:center">${sec}</td>
-      </tr>`;
+      const custom=m.customName&&m.name!=='[自訂動作]'?`<div class="report-move-custom">${m.customName}</div>`:'';
+      const setsHTML=(m.sets||[]).map((s,i)=>{
+        const parts=[];
+        if(s.w)parts.push(`${s.w}kg`);
+        if(s.r)parts.push(`${s.r}次`);
+        if(s.sec)parts.push(`${s.sec}秒`);
+        return`<div class="report-set">組${i+1}：${parts.join(' × ')||'—'}</div>`;
+      }).join('');
+      return`<div class="report-move"><div class="report-move-name">${displayName}</div>${custom}${setsHTML}</div>`;
     }).join('')
-    :`<tr><td colspan="4" style="text-align:center;color:var(--g500);padding:14px">未記錄</td></tr>`;
+    :`<div style="font-size:13px;color:var(--g500)">未記錄</div>`;
   const hwHTML=hw.length
     ?`<ul class="hw-list">${hw.map((h,i)=>`<li><span class="hw-num">${i+1}</span>${h}</li>`).join('')}</ul>${hwNote?`<div class="note-box" style="margin-top:10px">${hwNote}</div>`:''}`
     :`<div style="font-size:13px;color:var(--g500)">本次無指定回家功課</div>`;
@@ -524,24 +522,24 @@ function buildReportHTML(name,date,moves,hw,hwNote,special,note){
       <div class="rmc"><div class="lbl">學員姓名</div><div class="val">${name}</div></div>
       <div class="rmc"><div class="lbl">課程日期</div><div class="val">${dateStr}</div></div>
     </div>
-    <div class="report-sec"><div class="rst">本次訓練內容</div>
-      <table class="rt"><thead><tr><th style="width:38%">訓練項目</th><th style="width:20%;text-align:center">重量</th><th style="width:20%;text-align:center">組×次</th><th style="width:22%;text-align:center">秒數</th></tr></thead>
-      <tbody>${mvHTML}</tbody></table></div>
+    <div class="report-sec"><div class="rst">本次訓練內容</div>${mvHTML}</div>
     <div class="report-sec"><div class="rst">回家功課</div>${hwHTML}</div>
     <div class="report-sec"><div class="rst">特殊注意事項</div>${specialHTML}</div>
     <div class="report-sec"><div class="rst">教練備註</div>${noteHTML}</div>
-    <div class="disclaimer"><p>如需醫療建議或診斷,請諮詢專業醫療人員。本報告內容僅供訓練參考，不構成任何醫療意見。</p></div>`;
+    <div class="disclaimer"><p>如需醫療建議或診斷，請諮詢專業醫療人員。本報告內容僅供訓練參考，不構成任何醫療意見。</p></div>`;
 }
 
 function renderHistory(){
   const list=getSessions(cur);
   const el=document.getElementById('history-list');
   if(!list.length){el.innerHTML=`<div class="empty-state"><div class="icon">📋</div>尚無課程紀錄</div>`;return;}
-  el.innerHTML=list.map((s,i)=>`
-    <div class="hist-card" onclick="showHistDetail(${i})">
+  el.innerHTML=list.map((s,i)=>{
+    const moveNames=(s.moves||[]).map(m=>m.name==='[自訂動作]'&&m.customName?m.customName:m.name).join('・');
+    return`<div class="hist-card" onclick="showHistDetail(${i})">
       <div class="hist-date">${s.date}</div>
-      <div class="hist-moves">${(s.moves||[]).map(m=>m.name==='[自訂動作]'&&m.customName?m.customName:m.name).join('・')}</div>
-    </div>`).join('');
+      <div class="hist-moves">${moveNames}</div>
+    </div>`;
+  }).join('');
 }
 
 function showHistDetail(i){
@@ -563,8 +561,9 @@ function renderStats(){
     <div class="stat-box"><div class="stat-num">${list.length?list[list.length-1].date:'—'}</div><div class="stat-lbl">首次上課</div></div>
     <div class="stat-box"><div class="stat-num">${lastDate}</div><div class="stat-lbl">最近上課</div></div>`;
 
-  const movesWithWeight=list.flatMap(s=>(s.moves||[]).filter(m=>m.w&&parseFloat(m.w)>0));
-  const movesSet=[...new Set(movesWithWeight.map(m=>m.name==='[自訂動作]'&&m.customName?m.customName:m.name))];
+  const allSets=list.flatMap(s=>(s.moves||[]).flatMap(m=>(m.sets||[]).map(set=>({name:m.name==='[自訂動作]'&&m.customName?m.customName:m.name,w:set.w,date:s.date}))));
+  const movesWithWeight=allSets.filter(s=>s.w&&parseFloat(s.w)>0);
+  const movesSet=[...new Set(movesWithWeight.map(s=>s.name))];
   const sel=document.getElementById('chart-move-select');
   sel.innerHTML=movesSet.length
     ?movesSet.map(m=>`<option value="${m}">${m}</option>`).join('')
@@ -588,23 +587,32 @@ function renderStats(){
 function renderChart(){
   const moveName=document.getElementById('chart-move-select').value;
   const list=getSessions(cur).slice().reverse();
-  const pts=list.flatMap(s=>(s.moves||[]).filter(m=>{
+  const allSets=list.flatMap(s=>(s.moves||[]).flatMap(m=>{
     const name=m.name==='[自訂動作]'&&m.customName?m.customName:m.name;
-    return name===moveName&&m.w&&parseFloat(m.w)>0;
-  }).map(m=>({date:s.date,w:parseFloat(m.w)})));
+    return(m.sets||[]).filter(set=>name===moveName&&set.w&&parseFloat(set.w)>0).map(set=>({date:s.date,w:parseFloat(set.w)}));
+  }));
+  
   if(chartInst){chartInst.destroy();chartInst=null;}
-  if(!pts.length){
+  if(!allSets.length){
     const ctx=document.getElementById('progress-chart').getContext('2d');
     ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
     return;
   }
+  
+  const grouped={};
+  allSets.forEach(s=>{
+    if(!grouped[s.date])grouped[s.date]=[];
+    grouped[s.date].push(s.w);
+  });
+  const pts=Object.entries(grouped).map(([date,weights])=>({date,w:Math.max(...weights)}));
+  
   const ctx=document.getElementById('progress-chart').getContext('2d');
   chartInst=new Chart(ctx,{
     type:'line',
     data:{
       labels:pts.map(p=>p.date),
       datasets:[{
-        label:'重量 (kg)',
+        label:'最大重量 (kg)',
         data:pts.map(p=>p.w),
         borderColor:'#111',
         backgroundColor:'rgba(17,17,17,0.06)',
@@ -637,14 +645,22 @@ function exportObsidian(){
   md+=`\n---\n\n## 課程紀錄（${list.length} 堂）\n\n`;
   list.forEach(sess=>{
     md+=`### ${sess.date}\n\n`;
-    md+=`| 動作 | 重量 | 組×次 | 秒數 |\n|------|------|------|------|\n`;
     (sess.moves||[]).forEach(m=>{
       const name=m.name==='[自訂動作]'&&m.customName?m.customName:m.name;
       const custom=m.customName&&m.name!=='[自訂動作]'?` (${m.customName})`:'';
-      md+=`| ${name}${custom} | ${m.w||'—'} | ${m.r||'—'} | ${m.sec||'—'} |\n`;
+      md+=`**${name}${custom}**\n`;
+      (m.sets||[]).forEach((s,i)=>{
+        const parts=[];
+        if(s.w)parts.push(`${s.w}kg`);
+        if(s.r)parts.push(`${s.r}次`);
+        if(s.sec)parts.push(`${s.sec}秒`);
+        md+=`- 組${i+1}：${parts.join(' × ')||'—'}\n`;
+      });
+      md+=`\n`;
     });
     if(sess.hw&&sess.hw.length){
-      md+=`\n**回家功課：** ${sess.hw.join('、')}\n`;
+      md+=`**回家功課：** ${sess.hw.join('、')}\n`;
+      if(sess.hwNote)md+=`> ${sess.hwNote}\n`;
     }
     if(sess.special)md+=`\n**特殊注意：** ${sess.special}\n`;
     if(sess.note)md+=`\n**教練備註：** ${sess.note}\n`;
@@ -660,7 +676,7 @@ function exportObsidian(){
 
 function exportData(){
   const data={
-    version:'3.0',
+    version:'4.0',
     exportTime:new Date().toISOString(),
     students:students,
     sessions:sessions
